@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShoppersHub - Your Online Shopping Destination</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="#" class="logo" onclick="showPage('home')">ShoppersHub</a>
+            
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search products...">
+                <button onclick="searchProducts()">Search</button>
+            </div>
+            
+            <div class="nav-actions">
+                <a href="#" class="nav-btn" onclick="showPage('account')">👤 Account</a>
+                <a href="#" class="nav-btn" onclick="showPage('cart')">🛒 Cart (<span id="cartCount">0</span>)</a>
+                <a href="#" class="nav-btn" onclick="showPage('orders')">📦 Orders</a>
+            </div>
+            
+            <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+    <div class="sidebar">
+        <button class="close-sidebar" onclick="toggleSidebar()">×</button>
+        <ul class="sidebar-menu">
+            <li><a href="#" onclick="showPage('account'); toggleSidebar();">👤 Account</a></li>
+            <li><a href="#" onclick="showPage('cart'); toggleSidebar();">🛒 My Cart</a></li>
+            <li><a href="#" onclick="showPage('orders'); toggleSidebar();">📦 Orders</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Page -->
+        <div id="homePage" class="page">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <h1>Welcome to ShoppershHub</h1>
+                    <p>Discover amazing products at unbeatable prices</p>
+                    <a href="#categories" class="hero-btn">Shop Now</a>
+                </div>
+            </section>
+
+            <!-- Categories Section -->
+            <section class="categories" id="categories">
+                <div class="container">
+                    <h2>Shop by Category</h2>
+                    <div class="category-grid" id="categoryGrid">
+                        <!-- Categories will be populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Category/Search Page -->
+        <div id="categoryPage" class="page hidden">
+            <div class="container">
+                <h1 id="categoryTitle">Products</h1>
+                
+                <div class="filter-section">
+                    <div class="filter-row">
+                        <div class="filter-group">
+                            <label for="sortBy">Sort By:</label>
+                            <select id="sortBy" onchange="applyFilters()">
+                                <option value="relevance">Relevance</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                                <option value="rating">Rating</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="priceRange">Max Price:</label>
+                            <input type="range" id="priceRange" min="0" max="10000" value="10000" onchange="applyFilters()">
+                            <span id="priceValue">₹10000</span>
+                        </div>
+                        <div class="filter-group">
+                            <label for="brandFilter">Brand:</label>
+                            <select id="brandFilter" onchange="applyFilters()">
+                                <option value="">All Brands</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-grid" id="productGrid">
+                    <!-- Products will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Detail Page -->
+        <div id="productPage" class="page hidden">
+            <div class="container">
+                <div class="product-detail" id="productDetail">
+                    <!-- Product details will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Cart Page -->
+        <div id="cartPage" class="page hidden">
+            <div class="container">
+                <h1>My Cart</h1>
+                <div id="cartItems">
+                    <!-- Cart items will be populated by JavaScript -->
+                </div>
+                <div class="cart-summary" id="cartSummary">
+                    <!-- Cart summary will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Form Page -->
+        <div id="orderPage" class="page hidden">
+            <div class="container">
+                <h1>Place Order</h1>
+                <div id="orderSteps">
+                    <!-- Order steps will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Orders Page -->
+        <div id="ordersPage" class="page hidden">
+            <div class="container">
+                <h1>My Orders</h1>
+                <div id="ordersList">
+                    <!-- Orders will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Account Page -->
+        <div id="accountPage" class="page hidden">
+            <div class="container">
+                <h1>My Account</h1>
+                <div class="order-form">
+                    <h2>Personal Information</h2>
+                    <div class="form-group">
+                        <label for="userName">Name:</label>
+                        <input type="text" id="userName" placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="userEmail">Email:</label>
+                        <input type="email" id="userEmail" placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="userPhone">Phone:</label>
+                        <input type="tel" id="userPhone" placeholder="Enter your phone number">
+                    </div>
+                    <div class="form-group">
+                        <label for="userAddress">Address:</label>
+                        <textarea id="userAddress" placeholder="Enter your address"></textarea>
+                    </div>
+                    <button class="btn-primary" onclick="saveUserInfo()">Save Information</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>ShoppersHub</h3>
+                <p>Your trusted online shopping destination for quality products at great prices.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#" onclick="showPage('home')">Home</a></li>
+                    <li><a href="#" onclick="showPage('account')">My Account</a></li>
+                    <li><a href="#" onclick="showPage('cart')">Cart</a></li>
+                    <li><a href="#" onclick="showPage('orders')">Orders</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Customer Service</h4>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Return Policy</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="#">Facebook</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">Instagram</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ShoppersHub & Karanje. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
